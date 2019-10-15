@@ -1,8 +1,7 @@
 <?php
 	session_start();
 	require_once("supportForSelect.php");
-	// echo "This is what I get".$_POST["movie_to_be_displayed"];
-
+	
 	$body = "";
 	$host = "localhost";
 	$user = "root";
@@ -13,11 +12,6 @@
 	$db = connectToDB($host, $user, $password, $database);
 
 	$name_from_select = $_POST["movie_to_be_displayed"];
-
-	$fileToInsert = "../images/testudo.jpg";
-	$docMimeType = "image/jpeg";
-
-	$fileData = addslashes(file_get_contents($fileToInsert));
 
 	$sqlQuery = "select * from $table where name = '".$name_from_select."'";
 	$result = mysqli_query($db, $sqlQuery);
@@ -130,11 +124,7 @@ EOSEND;
 
 
 
-	}else {
-		$body = "<h3>Failed to add document $fileToInsert: ".mysqli_error($db)." </h3>";
 	}
-
-	/* Closing */
 	mysqli_close($db);
 
 	echo generatePage($body);

@@ -5,14 +5,13 @@ session_start();
   $top = <<<EOTOP
     <div class="center selectTitle">
         
-        <h1 class="title">Review Movies</h1>
+        <h1 class="title">Movie Rating</h1>
         
         <a href="logout.php"> <button> Logout </button> </a>
 
         <form action="select.php" method="post">
         <em><input type="text" name="search_name" id="search_name" placeholder="Please enter the keywords related to the movie" size="60%" /></em>
         <input type="submit" name="sub_search" id="sub_search" value="Find" />
-        <input type="submit" name="back" id="back" value="Clear" />
         </form>
         
     </div>
@@ -54,8 +53,7 @@ EOSE;
       $num_rows = $search_result->num_rows;
 
       if ($num_rows !== 0) {
-  			for ($row_index = 0; $row_index < $num_rows; $row_index++) {
-  				$search_result->data_seek($row_index);
+  			 for ($row_index = 0; $row_index < $num_rows; $row_index++) {
           $row = $search_result->fetch_array(MYSQLI_ASSOC);
           $imag = base64_encode($row["image"]);
           $rate = $row["rating"];

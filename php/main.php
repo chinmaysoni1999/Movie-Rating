@@ -11,7 +11,7 @@
             <img class="img_center" src="../images/reel.png" alt="reel logo" width="150px" height="150px">
             <h3>Sign in</h3>
             <form action="main.php" method="post" class="form-inline">
-                <label for="username" style="padding-left:30px;">Username:</label>
+                <label for="username" >Username:</label>
                 <input type="text" name="username" method="post" placeholder="Username" required>
                 <br><br>
                 <label for="password">Password:</label>
