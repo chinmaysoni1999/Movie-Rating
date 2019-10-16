@@ -40,8 +40,16 @@ CODE;
 CODE;
     $bodyBotMessage="<br>";
     if (isset($_POST["new_submit"])) {
+        $sqlquery = sprintf("select username from users where username=\"".$_POST["username"]."\"");
+        $connect = mysqli_connect("localhost", "root", "", "moviereviews");
+        $result = mysqli_query($connect, $sqlquery);
+        $count = mysqli_num_rows($result);
+
+        if ($count>0){
+            $bodyBotMessage = "<h4 style=\"text-align: center; color:red;\"> Username already exists. Please select another username!!</h4>";;
+        }
+        else{
         if ($_POST["new_password"] == $_POST["new_password_verify"]) {
-            $connect = mysqli_connect("localhost", "root", "", "moviereviews");
             if (mysqli_connect_errno()) {
                 echo "Connect failed.\n".mysqli_connect_error();
                 exit();
@@ -49,14 +57,13 @@ CODE;
             $sqlquery = sprintf("insert into users (username, password) values ('%s', '%s')",
                         $_POST["username"], password_hash($_POST["new_password"], PASSWORD_DEFAULT));
             $result = mysqli_query($connect, $sqlquery);
-            
-            mysqli_close($connect);
             $bodyBotMessage = "<h4 class=\"center\">Account successfully created.</h4>";
         } else {
             $bodyBotMessage =  "<h4 style=\"text-align: center; color:red;\"> error: passwords do not match</h4>";
         }
     }
-
+    mysqli_close($connect);
+}
     if (isset($_POST["submit"])) {
         $connect = mysqli_connect("localhost", "root", "", "moviereviews");
         $sqlquery = sprintf("select username,password from users where username=\"".$_POST["username"]."\"");
